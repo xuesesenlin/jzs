@@ -10,7 +10,10 @@
     -fx-border-radius: 0;
 }
 .button2:hover{
-    -fx-background-color: linear-gradient(to right,#ee710c,#ee0c5a);
-    -fx-background-radius: 0;
-    -fx-border-radius: 0;
+}
+.hbox{
+    -fx-padding: 5;
+}
+.font{
+    -fx-font-size: 36.0;
 }

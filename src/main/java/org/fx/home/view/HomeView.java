@@ -40,23 +40,21 @@ public class HomeView {
 //        TrayIcon trayIcon = new TrayIcon(image, "自动备份工具");
 //        trayIcon.setToolTip("自动备份工具");
 //        tray.add(trayIcon);
-
-        primaryStage.setTitle("");
-//        欢迎语
-//        MP3Util mp3Util = new MP3Util();
-//        mp3Util.mp3("/mp3/welcome.mp3");
-        //        窗口最大化
+//        全屏
+//        primaryStage.setFullScreen(true);
+        //        最大化
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
         primaryStage.setX(bounds.getMinX());
         primaryStage.setY(bounds.getMinY());
         primaryStage.setWidth(bounds.getWidth());
         primaryStage.setHeight(bounds.getHeight());
+
         Parent root = FXMLLoader.load(getClass().getResource("/home/fxml/index.fxml"));
+        primaryStage.setTitle("");
+//        Scene scene = new Scene(root, 600, 400);
+        Scene scene = new Scene(root);
 //        加载外部css
-        Scene scene = primaryStage.getScene();
-        scene.setRoot(root);
-        scene.getStylesheets().clear();
         scene.getStylesheets().add(getClass().getResource("/home/css/index.css").toExternalForm());
         primaryStage.setScene(scene);
 //        显示
