@@ -39,23 +39,36 @@ public class JzView {
 //        第一行
         HBox hBox1 = new HBox();
         hBox1.getStyleClass().add("hbox");
-        Label label1_1 = new Label("测试:");
+        Label label1_1 = new Label("模版地址:");
         label1_1.getStyleClass().add("font");
         TextField textField1_2 = new TextField();
         textField1_2.getStyleClass().add("font");
         textField1_2.setPrefWidth(700);
+        textField1_2.setId("demo");
         hBox1.getChildren().addAll(label1_1, textField1_2);
         vBox.getChildren().addAll(hBox1);
         //        第二行
         HBox hBox2 = new HBox();
         hBox2.getStyleClass().add("hbox");
-        Label label2_1 = new Label("测试:");
+        Label label2_1 = new Label("导出位置:");
         label2_1.getStyleClass().add("font");
         TextField textField2_2 = new TextField();
         textField2_2.getStyleClass().add("font");
         textField2_2.setPrefWidth(700);
+        textField2_2.setId("outfile");
         hBox2.getChildren().addAll(label2_1, textField2_2);
         vBox.getChildren().addAll(hBox2);
+        //        第二行
+        HBox hBox3 = new HBox();
+        hBox3.getStyleClass().add("hbox");
+        Label label3_1 = new Label("委托人:");
+        label3_1.getStyleClass().add("font");
+        TextField textField3_2 = new TextField();
+        textField3_2.getStyleClass().add("font");
+        textField3_2.setPrefWidth(700);
+        textField3_2.setId("name");
+        hBox3.getChildren().addAll(label3_1, textField3_2);
+        vBox.getChildren().addAll(hBox3);
 
 //        按钮
         HBox hBoxBottom = new HBox();

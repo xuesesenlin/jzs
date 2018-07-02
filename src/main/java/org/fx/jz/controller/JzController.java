@@ -28,8 +28,29 @@ public class JzController {
     //保存并生成doc文件
     public void save(MouseEvent event) {
         Map<String, String> map = new HashMap<>();
-        map.put("${1}", "标题");
-        map.put("${2}", "内容");
+
+        Parent root = FXRobotHelper.getStages().get(0).getScene().getRoot();
+        AnchorPane node = (AnchorPane) root.lookup("#jz_index");
+        ObservableList<Node> nodes = node.getChildren();
+        nodes.forEach(k -> {
+            VBox vBox = (VBox) k;
+            ObservableList<Node> nodes1 = vBox.getChildren();
+            nodes1.forEach(j -> {
+                HBox hBox = (HBox) j;
+                ObservableList<Node> nodes2 = hBox.getChildren();
+                nodes2.forEach(m -> {
+                    String s = m.getTypeSelector();
+                    if (s.equals("TextField")) {
+                        TextField textField = (TextField) m;
+                        String id = textField.getId();
+                        String text = textField.getText();
+                        if (text != null && !text.trim().equals(""))
+                            map.put(id, text);
+                    }
+                });
+            });
+        });
+
         new JzService().doc(map);
     }
 
@@ -52,6 +73,5 @@ public class JzController {
                 });
             });
         });
-
     }
 }

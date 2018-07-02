@@ -5,7 +5,6 @@ import org.apache.poi.hwpf.usermodel.Range;
 import org.fx.urils.GetUuid;
 
 import java.io.*;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -16,16 +15,9 @@ import java.util.Map;
  */
 public class JzService {
 
-    public static void main(String[] args) {
-        Map<String, String> map = new HashMap<>();
-        map.put("${1}", "标题");
-        map.put("${2}", "内容");
-        new JzService().doc(map);
-    }
-
     public void doc(Map<String, String> params) {
         // 获取模板文件
-        File templateFile = new File("D:\\xuesesenlin\\demo.doc");
+        File templateFile = new File(params.get("demo"));
         ByteArrayOutputStream ostream = null;
         try {
             FileInputStream in = new FileInputStream(templateFile);
@@ -38,7 +30,7 @@ public class JzService {
             ostream = new ByteArrayOutputStream();
             hwpfDocument.write(ostream);
 
-            OutputStream os = new FileOutputStream("D:\\" + params.get("name") + GetUuid.getUUID() + ".doc");
+            OutputStream os = new FileOutputStream(params.get("outfile") + params.get("name") + GetUuid.getUUID() + ".doc");
             //把doc输出到输出流中
             hwpfDocument.write(os);
             this.closeStream(os);
