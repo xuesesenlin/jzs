@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.fx.jz.controller.JzController;
 
 /**
  * @author ld
@@ -63,10 +64,16 @@ public class JzView {
         save.getStyleClass().add("font");
         Insets insets = new Insets(0, 10, 0, 0);
         save.setPadding(insets);
+        save.setOnMouseClicked(o -> {
+            new JzController().save(o);
+        });
         Button reset = new Button("重置");
         reset.getStyleClass().add("font");
         Insets insets2 = new Insets(0, 10, 0, 0);
         reset.setPadding(insets2);
+        reset.setOnMouseClicked(o -> {
+            new JzController().reset(o);
+        });
         hBoxBottom.getChildren().addAll(save, reset);
         vBox.getChildren().add(hBoxBottom);
         return vBox;

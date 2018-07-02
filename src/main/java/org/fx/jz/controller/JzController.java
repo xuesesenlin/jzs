@@ -1,6 +1,19 @@
 package org.fx.jz.controller;
 
+import com.sun.javafx.robot.impl.FXRobotHelper;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import org.fx.jz.service.JzService;
 import org.fx.urils.AlertUtil;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author ld
@@ -12,32 +25,33 @@ public class JzController {
 
     private AlertUtil alert = new AlertUtil();
 
-//    private void ss_data() {
-//        try {
-//            Parent root = FXRobotHelper.getStages().get(0).getScene().getRoot();
-//            TableView tableView = (TableView) root.lookup("#order_table");
-//            Label label = (Label) root.lookup("#pageNow");
-//            if (tableView != null) {
-//                if (DdglController.ddlx == 0) {
-//                    ResponseResult<String> result = orderInterface.page(0, 15, 0, StaticToken.getToken());
-//                    if (result.isSuccess()) {
-//                        String json = result.getData().substring(0, result.getData().lastIndexOf("]") + 1);
-//                        try {
-//                            List<OrderModel> beanList = objectMapper.readValue(json, new TypeReference<List<OrderModel>>() {
-//                            });
-//                            String s = result.getData().substring(result.getData().lastIndexOf("]") + 1, result.getData().length());
-//                            StaticToken.setToken(s);
-//                            tableView.getItems().clear();
-//                            tableView.getItems().addAll(beanList);
-//                            label.setText("1");
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    //保存并生成doc文件
+    public void save(MouseEvent event) {
+        Map<String, String> map = new HashMap<>();
+        map.put("${1}", "标题");
+        map.put("${2}", "内容");
+        new JzService().doc(map);
+    }
+
+    public void reset(MouseEvent event) {
+        Parent root = FXRobotHelper.getStages().get(0).getScene().getRoot();
+        AnchorPane node = (AnchorPane) root.lookup("#jz_index");
+        ObservableList<Node> nodes = node.getChildren();
+        nodes.forEach(k -> {
+            VBox vBox = (VBox) k;
+            ObservableList<Node> nodes1 = vBox.getChildren();
+            nodes1.forEach(j -> {
+                HBox hBox = (HBox) j;
+                ObservableList<Node> nodes2 = hBox.getChildren();
+                nodes2.forEach(m -> {
+                    String s = m.getTypeSelector();
+                    if (s.equals("TextField")) {
+                        TextField textField = (TextField) m;
+                        textField.setText("");
+                    }
+                });
+            });
+        });
+
+    }
 }
