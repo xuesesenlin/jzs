@@ -4,12 +4,15 @@ import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.usermodel.Range;
 import org.fx.urils.GetUuid;
 
-import javax.print.*;
-import javax.print.attribute.DocAttributeSet;
-import javax.print.attribute.HashDocAttributeSet;
+import javax.print.DocFlavor;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.print.ServiceUI;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -80,8 +83,8 @@ public class JzService {
     /**
      * 打印
      */
-    public void print() {
-        File file = new File("D:\\xuesesenlin\\demo.doc");
+    public String print(String path) {
+        File file = new File(path);
         PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
 //设置打印格式，因为未确定文件类型，这里选择AUTOSENSE
         DocFlavor flavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
@@ -89,8 +92,9 @@ public class JzService {
         PrintService printService[] = PrintServiceLookup.lookupPrintServices(flavor, pras);
 //定位默认的打印服务
         PrintService defaultService = PrintServiceLookup.lookupDefaultPrintService();
+        if (defaultService != null) {
 //显示打印对话框
-        PrintService service = ServiceUI.printDialog(null, 200, 200, printService, defaultService, flavor, pras);
+            PrintService service = ServiceUI.printDialog(null, 200, 200, printService, defaultService, flavor, pras);
 
 //        if (service != null) {
 //            try {
@@ -99,10 +103,44 @@ public class JzService {
 //                DocAttributeSet das = new HashDocAttributeSet();
 //                Doc doc = new SimpleDoc(fis, flavor, das); //建立打印文件格式
 //                job.print(doc, pras); //进行文件的打印
+            return "打印完成";
 //            } catch (Exception e) {
 //                e.printStackTrace();
 //            }
 //        }
+        } else
+            return "请先设置默认的打印机!";
     }
 
+    /**
+     * 获取指定路径下的所有doc文件
+     *
+     * @param path
+     * @return
+     */
+    public List<String> findDoc(String path) {
+        List<String> list = new ArrayList<>();
+        find(new File(path), list);
+        return list;
+    }
+
+    /**
+     * 获取指定路径下的所有doc文件
+     */
+    private static void find(File file, List<String> list) {
+        File flist[] = file.listFiles();
+        for (File f : flist) {
+            if (f.isDirectory()) {
+                //这里将列出所有的文件夹
+                find(f, list);
+            } else {
+                //这里将列出所有的文件
+                String fileName = f.getName();
+                String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
+                if (suffix.equals("doc"))
+                    list.add(f.getAbsolutePath());
+            }
+
+        }
+    }
 }
