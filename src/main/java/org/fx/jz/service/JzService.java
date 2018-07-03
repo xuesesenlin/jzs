@@ -129,18 +129,20 @@ public class JzService {
      */
     private static void find(File file, List<String> list) {
         File flist[] = file.listFiles();
-        for (File f : flist) {
-            if (f.isDirectory()) {
-                //这里将列出所有的文件夹
-                find(f, list);
-            } else {
-                //这里将列出所有的文件
-                String fileName = f.getName();
-                String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
-                if (suffix.equals("doc"))
-                    list.add(f.getAbsolutePath());
-            }
+        if (flist != null) {
+            for (File f : flist) {
+                if (f.isDirectory()) {
+                    //这里将列出所有的文件夹
+                    find(f, list);
+                } else {
+                    //这里将列出所有的文件
+                    String fileName = f.getName();
+                    String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
+                    if (suffix.equals("doc"))
+                        list.add(f.getAbsolutePath());
+                }
 
+            }
         }
     }
 }

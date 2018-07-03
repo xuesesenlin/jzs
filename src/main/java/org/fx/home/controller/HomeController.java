@@ -4,6 +4,7 @@ import com.sun.javafx.robot.impl.FXRobotHelper;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import org.fx.jz.view.JzView;
+import org.fx.jzgl.view.JzglView;
 import org.fx.urils.AlertUtil;
 
 /**
@@ -35,6 +36,11 @@ public class HomeController {
     @FXML
     private void jz(MouseEvent event) throws Exception {
         new JzView().init();
+    }
+
+    @FXML
+    private void jzgl(MouseEvent event) throws Exception {
+        new JzglView().init();
     }
 
 
