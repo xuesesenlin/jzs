@@ -28,7 +28,7 @@
                   <TableView fx:id="table" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                     <columns>
                       <TableColumn maxWidth="1000.0" minWidth="500.0" prefWidth="500.0" text="路径" />
-                      <TableColumn minWidth="0.0" text="操作" />
+                      <TableColumn maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="操作" />
                     </columns>
                   </TableView>
                </children>
